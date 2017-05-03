@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.js"></script>
+	<script src="./jquery.cookie.js" type="text/javascript"></script>
+</head>
+<body>
+<div class="welcome"></div>
+<div>
+	<div>
+		<input type="text" name="" class="name" />
+		<br />
+		<input type="text" name="" class="pass" />
+		<br />
+		<p>
+			<input type="checkbox" name="" class="isCookie" checked >
+			<label>记住我</label>
+		</p>
+		<button class="x">click</button>
+	</div>
+</div>
+<script type="text/javascript">
+	/*
+	=====================================
+	 	cookie 对象保存、读取、删除用户的信息，还能通过cookie插件保存用户的浏览记录，
+	 	保存：$.cookie(key，value)；// 会话cookie 没有指明有效日期，用户关闭浏览器失效
+	 	保存：#。cookie(key, value, {expires: 7}); // 持久cookie 保存时间为 7天
+	 	保存：#。cookie(key, value, {expires: 7, path:'/' }); // 持久cookie 
+	 	     保存时间为 7天 设置cookie的保存目录为顶级目录，所有网站都能读取这cookie
+	 	     一般不这样设置，防止出现冲突
+	 	读取：$.cookie(key)，// key => value
+	 	删除：$.cookie(key，null), // 把值传递为 null 即可删除
+	 	其中参数key为保存cookie对象的名称，value为名称对应的cookie值。
+	=====================================
+	*/
+	$(function(){
+		let [btn, name, pass, welcome] = [$(".x"), $(".name"), $(".pass"), $(".welcome")];
+
+		/*
+		===================
+			用户进入界面 先判断有没有 kcookie
+		===================
+		*/
+
+		if ( $.cookie("name") ){ // 判断cookit有没有 name 字段
+			console.log("1");
+            name.val( $.cookie('name') ); // name input value = $.cookie("name")
+            pass.val( $.cookie('pass') ); // name input value = $.cookie("name")
+         }
+
+		btn.on("click",function(){
+			var check =$(".isCookie")[0];
+			
+			if( check.checked ){
+				console.log("true 保存cookie");
+				$.cookie('name', name.val(), {expires : 7} )
+				 $.cookie('pass', pass.val(), {expires : 7} ); // 保存 coolie
+				
+			}else{
+				console.log("false 删除cookie");
+				$.cookie('name', null) // 删除 cookie
+				$.cookie('pass', null) // 删除 cookie
+				
+			}
+		})
+
+		function sginIn(){
+			let ele = `<h1>Welcome `+ name.val()  +`</h1>`;
+			welcome.html(ele)
+		}
+	})
+</script>
+</body>
+</html>
