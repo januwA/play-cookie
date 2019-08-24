@@ -1,2 +1,2 @@
 # play-cookie
-玩玩 cookit
+玩玩 cookie
